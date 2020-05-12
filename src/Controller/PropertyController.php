@@ -27,19 +27,18 @@ class PropertyController extends AbstractController
     }
 
     /**
-     * @Route("/biens", name="property.index")
+     * @Route("/properties", name="property.index")
      * @return Response
      */
     public function index(): Response
     {
-
         return $this->render('property/index.html.twig', [
             'current_menu' => 'properties'
         ]);
     }
 
     /**
-     * @Route("/biens/{slug}-{id}", name="property.show", requirements={"slug": "[a-z0-9\-]*", "id": "[0-9]+"})
+     * @Route("/properties/{slug}-{id}", name="property.show", requirements={"slug": "[a-z0-9\-]*", "id": "[0-9]+"})
      * @param Property $property
      * @return Response
      */
@@ -60,4 +59,5 @@ class PropertyController extends AbstractController
             'property' => $property
         ]);
     }
+
 }

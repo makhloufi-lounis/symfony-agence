@@ -6,13 +6,32 @@ use App\Repository\PropertyRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
  */
 class Property
 {
-    const HEAT = [
+    public const BLOCK_NAME_ADMIN = 'admin';
+    public const BLOCK_NAME_PUBLIC = 'public';
+
+    public const STATUS_PUBLIC = 'public';
+    public const STATUS_WAITING = 'waiting';
+    public const STATUS_REQUEST_PUBLICATION = 'request_publication';
+    public const STATUS_DELETED = 'deleted';
+    public const STATUS_ARCHIVED = 'archived';
+
+    public const STATUS = [
+        'public' => 'Publique',
+        'waiting' => 'Attente',
+        'request_publication' => 'Demande publication',
+        'deleted' => 'Supprimée',
+        'archived' => 'Archivée'
+    ];
+
+
+    public const HEAT = [
         0 => 'Eléctric',
         1 => 'Gaz',
         2 => 'Central'
@@ -27,6 +46,7 @@ class Property
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=10, max=255)
      */
     private $title;
 
@@ -37,46 +57,54 @@ class Property
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=10)
      */
     private $area;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=0)
      */
     private $rooms;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=0)
      */
     private $bedrooms;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=0)
      */
-    private $floor;
+    private $floor = 0;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=0)
      */
     private $price;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $heat;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=255)
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, max=255)
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\Regex("/^[0-9]{2}\s[0-9]{3}/")
      */
     private $postalCode;
 
@@ -84,6 +112,11 @@ class Property
      * @ORM\Column(type="boolean", options={"default": false})
      */
     private $sold = false;
+
+    /**
+     * @ORM\Column(type="string", length=45, options={"default": "public"})
+     */
+    private $status = 'public';
 
     /**
      * @ORM\Column(type="datetime")
@@ -183,9 +216,9 @@ class Property
      * @param int $rooms
      * @return $this
      */
-    public function setRooms(int $rooms): self
+    public function setRooms(?int $rooms): self
     {
-        $this->rooms = $rooms;
+        $this->rooms = (int) $rooms;
 
         return $this;
     }
@@ -202,9 +235,9 @@ class Property
      * @param int $bedrooms
      * @return $this
      */
-    public function setBedrooms(int $bedrooms): self
+    public function setBedrooms(?int $bedrooms): self
     {
-        $this->bedrooms = $bedrooms;
+        $this->bedrooms = (int) $bedrooms;
 
         return $this;
     }
@@ -221,9 +254,9 @@ class Property
      * @param int $floor
      * @return $this
      */
-    public function setFloor(int $floor): self
+    public function setFloor(?int $floor): self
     {
-        $this->floor = $floor;
+        $this->floor = (int)$floor;
 
         return $this;
     }
@@ -240,9 +273,9 @@ class Property
      * @param int $price
      * @return $this
      */
-    public function setPrice(int $price): self
+    public function setPrice(?int $price): self
     {
-        $this->price = $price;
+        $this->price = (int)$price;
 
         return $this;
     }
@@ -347,6 +380,24 @@ class Property
     {
         $this->sold = $sold;
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     * @return Property
+     */
+    public function setStatus($status): self
+    {
+        $this->status = $status;
         return $this;
     }
 
