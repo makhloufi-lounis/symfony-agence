@@ -30,6 +30,7 @@ class PropertyFixtures extends Fixture
             $property->setAddress($faker->address);
             $property->setPostalCode($faker->postcode);
             $property->setSold($cpt % 3 == 0 ? true : false);
+            $property->setStatus(Property::STATUS_REQUEST_PUBLICATION);
             $manager->persist($property);
             $cpt++;
         }while($cpt <= 10);
