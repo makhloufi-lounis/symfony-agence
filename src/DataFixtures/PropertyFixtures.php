@@ -18,22 +18,22 @@ class PropertyFixtures extends Fixture
         $cpt = 0;
         do {
             $property = new Property();
-            $property->setTitle($faker->sentence(10));
-            $property->setDescription($faker->sentence(100));
-            $property->setArea($faker->numberBetween(20, 100));
-            $property->setRooms($faker->numberBetween(1, 5));
-            $property->setBedrooms($faker->numberBetween(1,4));
-            $property->setFloor($faker->numberBetween(1, 20));
-            $property->setPrice($faker->numberBetween(50000, 500000));
-            $property->setHeat(array_rand(Property::HEAT));
-            $property->setCity($faker->city);
-            $property->setAddress($faker->address);
-            $property->setPostalCode($faker->postcode);
-            $property->setSold($cpt % 3 == 0 ? true : false);
-            $property->setStatus(Property::STATUS_REQUEST_PUBLICATION);
+            $property->setTitle($faker->words(4, true))
+                ->setDescription($faker->sentence(5, true))
+                ->setArea($faker->numberBetween(20, 350))
+                ->setRooms($faker->numberBetween(1, 5))
+                ->setBedrooms($faker->numberBetween(1,4))
+                ->setFloor($faker->numberBetween(1, 20))
+                ->setPrice($faker->numberBetween(50000, 500000))
+                ->setHeat(array_rand(Property::HEAT))
+                ->setCity($faker->city)
+                ->setAddress($faker->address)
+                ->setPostalCode($faker->postcode)
+                ->setSold($cpt % 3 == 0 ? true : false)
+                ->setStatus(Property::STATUS_REQUEST_PUBLICATION);
             $manager->persist($property);
             $cpt++;
-        }while($cpt <= 10);
+        }while($cpt <= 100);
 
         $manager->flush();
     }

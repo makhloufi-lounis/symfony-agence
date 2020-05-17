@@ -4,8 +4,12 @@
 namespace App\Controller;
 
 use App\Entity\Property;
+use App\Entity\PropertySearch;
+use App\Form\PropertySearchType;
 use App\Repository\PropertyRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -28,12 +32,31 @@ class PropertyController extends AbstractController
 
     /**
      * @Route("/properties", name="property.index")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
+        // Creation of an entity that will represent our research
+        $search = new PropertySearch();
+        // Creation of a form
+        $form = $this->createForm(PropertySearchType::class,$search, [
+            'block_name' => 'intuitive_search'
+        ]);
+        // Manage processing here
+        $form->handleRequest($request);
+
+        $propertiesPagination = $paginator->paginate(
+            $this->repository->findAllVisibleQuery($search),
+            $request->query->getInt('page', 1),
+            12
+        );
+
         return $this->render('property/index.html.twig', [
-            'current_menu' => 'properties'
+            'current_menu' => 'properties',
+            'properties' => $propertiesPagination,
+            'form' => $form->createView()
         ]);
     }
 
