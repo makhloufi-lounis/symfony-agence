@@ -7,10 +7,12 @@ use App\Entity\Property;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Sodium\add;
 
 class PropertyType extends AbstractType
 {
@@ -40,14 +42,21 @@ class PropertyType extends AbstractType
             ->add('options', EntityType::class, [
                 'class' => Option::class,
                 'choice_label' => 'name',
-                'multiple' => true
+                'multiple' => true,
+                'required' => false
             ])
             ->add('city', null, [
                 'label' => 'Ville'
             ])
             ->add('address')
             ->add('postalCode')
-            ->add('sold');
+            ->add('sold')
+            ->add('imageFile', FileType::class, [
+                'required' => false,
+                'attr' => [
+                    'placeholder' => "Télécharger une image"
+                ]
+            ]);
             if($options['block_name'] === 'admin'){
                 $builder->add('status', ChoiceType::class, [
                 'choices' => $this->getStatus()

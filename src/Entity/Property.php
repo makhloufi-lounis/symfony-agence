@@ -8,10 +8,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
+ * @Vich\Uploadable
  */
 class Property
 {
@@ -144,6 +148,24 @@ class Property
      * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="properties")
      */
     private $options;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="property_image", fileNameProperty="imageName")
+     *
+     * @var File|null
+     * @Assert\Image(mimeTypes="image/jpeg")
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @var string|null
+     */
+    private $imageName;
+
 
     public function __construct()
     {
@@ -457,11 +479,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getReference(): ?string
     {
         return $this->reference;
     }
 
+    /**
+     * @param string|null $reference
+     * @return $this
+     */
     public function setReference(?string $reference): self
     {
         $this->reference = $reference;
@@ -469,11 +498,18 @@ class Property
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getActivity(): ?string
     {
         return $this->activity;
     }
 
+    /**
+     * @param string $activity
+     * @return $this
+     */
     public function setActivity(string $activity): self
     {
         $this->activity = $activity;
@@ -489,6 +525,10 @@ class Property
         return $this->options;
     }
 
+    /**
+     * @param Option $option
+     * @return $this
+     */
     public function addOption(Option $option): self
     {
         if (!$this->options->contains($option)) {
@@ -499,6 +539,10 @@ class Property
         return $this;
     }
 
+    /**
+     * @param Option $option
+     * @return $this
+     */
     public function removeOption(Option $option): self
     {
         if ($this->options->contains($option)) {
@@ -508,4 +552,45 @@ class Property
 
         return $this;
     }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File|null $imageFile
+     * @return Property
+     */
+    public function setImageFile(?File $imageFile): Property
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile) {
+             $this->updatedAt = new DateTime('now');
+        }
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * @param string|null $imageName
+     * @return Property
+     */
+    public function setImageName(?string $imageName): Property
+    {
+        $this->imageName = $imageName;
+        return $this;
+    }
+
+
 }

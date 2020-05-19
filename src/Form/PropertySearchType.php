@@ -37,7 +37,10 @@ class PropertySearchType extends AbstractType
                         'label' => false,
                         'class' => Option::class,
                         'choice_label' => 'name',
-                        'multiple' => true
+                        'multiple' => true,
+                        'attr' => [
+                            'placeholder' => "Choisir des options"
+                        ]
                     ])
                     /*->add('submit', SubmitType::class, [
                         'label' => 'Rechercher'
