@@ -169,7 +169,7 @@ class Property
 
     public function __construct()
     {
-        $this->createdAt = new DateTime();
+        $this->createdAt = new DateTime('now');
         $this->options = new ArrayCollection();
     }
 

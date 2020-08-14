@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200512101603 extends AbstractMigration
+final class Version20200627220359 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,7 @@ final class Version20200512101603 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE property CHANGE rooms rooms INT DEFAULT NULL, CHANGE bedrooms bedrooms INT DEFAULT NULL, CHANGE floor floor INT DEFAULT NULL, CHANGE price price INT DEFAULT NULL, CHANGE heat heat INT DEFAULT NULL');
+        $this->addSql('CREATE TABLE regulation (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(255) NOT NULL, text LONGTEXT NOT NULL, status VARCHAR(45) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +30,6 @@ final class Version20200512101603 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE property CHANGE rooms rooms INT NOT NULL, CHANGE bedrooms bedrooms INT NOT NULL, CHANGE floor floor INT NOT NULL, CHANGE price price INT NOT NULL, CHANGE heat heat INT NOT NULL');
+        $this->addSql('DROP TABLE regulation');
     }
 }

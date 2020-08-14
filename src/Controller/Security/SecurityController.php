@@ -1,26 +1,27 @@
 <?php
 /**
- * Teeps API Server
+ * API Shop
  *
  * @version   1.0
  * @author    Lounis Makhloufi <makhloufi.lounis@gmail.com>
- * @see       https://github.com/makhloufi-lounis/symfony-agence.git for the canonical source repository
- * @copyright Copyright (c) 2020 Agence.
+ * @see       https://github.com/makhloufi-lounis/api-shop for the canonical source repository
+ * @copyright Copyright (c) 2020.
  */
 
 declare(strict_types=1);
 
 
-namespace App\Controller;
+namespace App\Controller\Security;
+
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class SecurityController
- * @package App\Controller
+ * @package App\Controller\Security
  */
 class SecurityController extends AbstractController
 {
@@ -38,4 +39,9 @@ class SecurityController extends AbstractController
             'error' => $authenticationUtils->getLastAuthenticationError()
         ]);
     }
+
+    /**
+     * @Route("/deconnexion", name="logout")
+     */
+    public function logout(){}
 }

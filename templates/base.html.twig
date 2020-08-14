@@ -4,10 +4,11 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/css/select2.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/css/select2.min.css"/>
+        <link rel="stylesheet" href="{{ '/css/style.css' }}" />
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>
+    <body style="background-color: #f6f8fd">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="{{ path('home') }}">Mon Agence</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,9 +44,51 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/js/select2.min.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script src="https://use.fontawesome.com/89c12e3b69.js"></script>
         <script>
             $('select').select2({
             });
+            /*$('#register-form').submit(function (event) {
+                event.preventDefault();
+                grecaptcha.reset();
+                grecaptcha.execute();
+            });
+            function RecaptchaSubmit(token) {
+                $('#register-form').submit();
+            }*/
+            // anonymous function lets us use private variables
+            /*(function() {
+                // remember the form
+                var $form = $("#register-form");
+
+                // whether we want to really submit the form or to trigger recaptcha
+                var really = false;
+
+                // when the form is submitted,
+                $form.on("submit", function(e) {
+                    // if we're really submitting then don't do anything
+                    if (really) {
+                        return;
+                    }
+
+                    // don't submit
+                    e.preventDefault();
+
+                    // start recaptcha
+                    grecaptcha.reset();
+                    grecaptcha.execute();
+                });
+
+                // set up a "recaptchaSubmit" function for recaptcha to call when it completes
+                window.recaptchaSubmit = function(token) {
+                    // from here on we should really submit the form
+                    really = true;
+
+                    // trigger a second submit
+                    $form.submit();
+                };
+            })();*/
         </script>
         {% block javascripts %}{% endblock %}
     </body>

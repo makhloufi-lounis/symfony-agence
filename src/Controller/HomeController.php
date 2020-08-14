@@ -29,4 +29,14 @@ class HomeController extends AbstractController
             'Tools' => new Tools()
         ]);
     }
+
+    /**
+     * @Route("/dashboard", name="dashboard")
+     * @return Response
+     */
+    public function dashboard(): Response
+    {
+        echo "Test connection"; exit;
+    }
+
 }

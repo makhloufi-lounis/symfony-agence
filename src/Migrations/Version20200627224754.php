@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200512103543 extends AbstractMigration
+final class Version20200627224754 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,9 @@ final class Version20200512103543 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE property CHANGE rooms rooms INT NOT NULL, CHANGE bedrooms bedrooms INT NOT NULL, CHANGE floor floor INT NOT NULL, CHANGE price price INT NOT NULL');
+        $this->addSql('ALTER TABLE regulation ADD user_id INT DEFAULT NULL, ADD created_at DATETIME NOT NULL, ADD updated_at DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE regulation ADD CONSTRAINT FK_53ECC299A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
+        $this->addSql('CREATE INDEX IDX_53ECC299A76ED395 ON regulation (user_id)');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +32,8 @@ final class Version20200512103543 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE property CHANGE rooms rooms INT DEFAULT NULL, CHANGE bedrooms bedrooms INT DEFAULT NULL, CHANGE floor floor INT DEFAULT NULL, CHANGE price price INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE regulation DROP FOREIGN KEY FK_53ECC299A76ED395');
+        $this->addSql('DROP INDEX IDX_53ECC299A76ED395 ON regulation');
+        $this->addSql('ALTER TABLE regulation DROP user_id, DROP created_at, DROP updated_at');
     }
 }

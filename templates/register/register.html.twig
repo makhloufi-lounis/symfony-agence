@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+{% block title %}Inscription{% endblock %}
+{% block body %}
+    <div class="container mt-4">
+        <h1>Inscription</h1>
+        <div id="registerForm">
+                <div class="row mt-3">
+                    <div class="col-12 col-lg-6 mt-4">
+                        <div class="text-center">
+                            <h5 class="mt-4 mb-4">Notre équipe se fera un plaisir de vous aidée a trouvez votre bien.</h5>
+                            <img src="{{ '/images/frontend/inscription.jpg' }}" alt="card-img-top" style="width: 100%; height: auto"/>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        {{ form_start(form, { 'attr' : { 'autocomplete' : 'off', 'id' : 'register-form' }} ) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_label(form.userType) }} <span class="required-field">*</span>
+                                {{ form_widget(form.userType) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_label(form.civility) }} <span class="required-field">*</span>
+                                {{ form_widget(form.civility) }}
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                {{ form_label(form.firstName) }} <span class="required-field">*</span>
+                                {{ form_widget(form.firstName) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_label(form.lastName) }} <span class="required-field">*</span>
+                                {{ form_widget(form.lastName) }}
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                {{ form_label(form.email) }}
+                                {{ form_widget(form.email) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_label(form.phone) }} <span class="required-field">*</span>
+                                {{ form_widget(form.phone) }}
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                {{ form_label(form.address) }}
+                                {{ form_widget(form.address) }}
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                {{ form_label(form.postalCode) }}
+                                {{ form_widget(form.postalCode) }}
+                            </div>
+                            <div class="col-md-8">
+                                {{ form_label(form.city) }} <span class="required-field">*</span>
+                                {{ form_widget(form.city) }}
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                {{ form_label(form.username) }} <span class="required-field">*</span>
+                                {{ form_widget(form.username) }}
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                {{ form_label(form.password.first) }} <span class="required-field">*</span>
+                                {{ form_widget(form.password.first) }}
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                {{ form_label(form.password.second) }} <span class="required-field">*</span>
+                                {{ form_widget(form.password.second) }}
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                {{ form_errors(form.termsAccepted) }}
+                                {{ form_widget(form.termsAccepted) }}
+                            </div>
+                        </div>
+                        <!--<div class="row mt-3">
+                            <div class="col text-right">
+                                {#{form_widget(form.recaptcha) }#}
+                            </div>
+                        </div> -->
+                        <div class="row mt-3">
+                            <div class="col text-right">
+                                <button type="submit" class="btn btn-primary">Inscrivez vous</button>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mt-4 text-center">
+                        <strong>OU</strong>
+                    </div>
+                </div>
+                <div class="row mt-4 mb-4">
+                    <div class="col-12 col-lg-6 text-center">
+                        <a href="" class="btn btn-lg btn-social btn-facebook">
+                            <i class="fa fa-facebook fa-fw"></i> Se connecter avec facebook
+                        </a>
+                    </div>
+                    <div class="col-12 col-lg-6 text-center">
+                        <a href="" class="btn btn-lg btn-social btn-facebook">
+                            <i class="fa fa-facebook fa-fw"></i> Se connecter avec facebook
+                        </a>
+                    </div>
+                </div>
+        </div>
+    </div>
+{% endblock %}

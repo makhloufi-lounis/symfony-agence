@@ -1,7 +1,17 @@
 <?php
+/**
+ * API Shop
+ *
+ * @version   1.0
+ * @author    Lounis Makhloufi <makhloufi.lounis@gmail.com>
+ * @see       https://github.com/makhloufi-lounis/api-shop for the canonical source repository
+ * @copyright Copyright (c) 2020.
+ */
+
+declare(strict_types=1);
 
 
-namespace App\Controller;
+namespace App\Controller\Property;
 
 use App\Entity\Property;
 use App\Entity\PropertySearch;
