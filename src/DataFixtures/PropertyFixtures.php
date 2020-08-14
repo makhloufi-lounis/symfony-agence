@@ -30,6 +30,7 @@ class PropertyFixtures extends Fixture
                 ->setAddress($faker->address)
                 ->setPostalCode($faker->postcode)
                 ->setSold($cpt % 3 == 0 ? true : false)
+                ->setImageName('noImage.jpg')
                 ->setStatus(Property::STATUS_REQUEST_PUBLICATION);
             $manager->persist($property);
             $cpt++;

@@ -32,6 +32,9 @@ class UserFixtures extends Fixture
         $user->setUsername('demo');
         $user->setPassword($this->encoder->encodePassword($user,'demo'));
         $user->setStatus('waiting');
+        $user->setCivility(User::CIVILITY[array_rand(User::CIVILITY)]);
+        $user->setUserType(User::USER_TYPES[array_rand(User::USER_TYPES)]);
+        $user->setPostalCode($faker->postcode);
         $manager->persist($user);
         $manager->flush();
     }
