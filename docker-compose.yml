@@ -1,0 +1,92 @@
+version: '3.3'
+
+services:
+  web:
+    container_name: ${WEB_CONTAINER_NAME}
+    image: nginx:latest
+    env_file:
+      - .env
+    expose:
+      - ${WEB_CONTAINER_PORT}
+    ports:
+      - ${WEB_MACHINE_PORT}:${WEB_CONTAINER_PORT}
+      - ${WEB_MACHINE_SSL_PORT}:${WEB_CONTAINER_SSL_PORT}
+    volumes:
+      - ./:/app
+      - ./.docker/nginx/site.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php
+    networks:
+      - agence
+
+  php:
+    container_name: ${APP_CONTAINER_NAME}
+    build: ./.docker/php-fpm
+    restart: on-failure
+    env_file:
+      - .env
+    expose:
+      - ${APP_UPSTREAM_PORT}
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+    networks:
+      - agence
+
+  myadmin:
+    container_name: ${PHP_MY_ADMIN_CONTAINER_NAME}
+    image: phpmyadmin/phpmyadmin
+    restart: on-failure
+    ports:
+      - ${PHP_MY_ADMIN_MACHINE_PORT}:${PHP_MY_ADMIN_CONTAINER_PORT}
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=${MYSQL_HOST}
+    depends_on:
+      - mysql
+    networks:
+      - agence
+
+  mysql:
+    container_name: ${MYSQL_HOST}
+    image: mysql:${MYSQL_VERSION}
+    restart: on-failure
+    env_file:
+      - .env
+    ports:
+      - ${MYSQL_MACHINE_PORT}:${MYSQL_CONTAINER_PORT}
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER= ${MYSQL_USER}
+      - MYSQL_PASSWORD= ${MYSQL_PSW}
+    volumes:
+      - ./data/db/mysql:/var/lib/mysql
+    networks:
+      - agence
+
+  redis:
+    container_name: ${CACHE_CONTAINER_NAME}
+    build: ./.docker/redis
+    restart: always
+    expose:
+      - ${CACHE_PORT}
+    ports:
+      - ${CACHE_MACHINE_PORT}:${CACHE_PORT}
+    volumes:
+      - ./${CACHE_VOLUME}:/var/lib/redis:rw
+    sysctls:
+      net.core.somaxconn: 65535
+    networks:
+      - agence
+
+  maildev:
+    image: djfarrelly/maildev
+    ports:
+      - ${MAIL_DEV_MACHINE_PORT}:${MAIL_DEV_CONTAINER_PORT}
+    networks:
+      - agence
+
+networks:
+  agence:
