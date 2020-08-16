@@ -50,7 +50,7 @@ class City
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $longgitude;
+    private $longitude;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -134,14 +134,14 @@ class City
         return $this;
     }
 
-    public function getLonggitude(): ?float
+    public function getLongitude(): ?float
     {
-        return $this->longgitude;
+        return $this->longitude;
     }
 
-    public function setLonggitude(?float $longgitude): self
+    public function setLongitude(?float $longitude): self
     {
-        $this->longgitude = $longgitude;
+        $this->longitude = $longitude;
 
         return $this;
     }
