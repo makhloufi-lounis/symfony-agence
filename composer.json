@@ -36,6 +36,7 @@
         "dama/doctrine-test-bundle": "^6.3",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "fzaninotto/faker": "^1.9",
+        "liip/test-fixtures-bundle": "^1.0.0",
         "squizlabs/php_codesniffer": "2.*",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
