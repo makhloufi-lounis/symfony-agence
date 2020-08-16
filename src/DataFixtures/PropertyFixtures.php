@@ -4,6 +4,7 @@
 namespace App\DataFixtures;
 
 
+use App\Entity\Option;
 use App\Entity\Property;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -31,11 +32,19 @@ class PropertyFixtures extends Fixture
                 ->setPostalCode($faker->postcode)
                 ->setSold($cpt % 3 == 0 ? true : false)
                 ->setImageName('noImage.jpg')
-                ->setStatus(Property::STATUS_REQUEST_PUBLICATION);
+                ->setStatus(Property::STATUS_REQUEST_PUBLICATION)
+                ->addOption($this->getReference(OptionFixtures::OPTION_REFERENCE.'-'.$faker->numberBetween(1,3)));
             $manager->persist($property);
             $cpt++;
         }while($cpt <= 100);
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            OptionFixtures::class,
+        );
     }
 }

@@ -35,7 +35,15 @@ class UserFixtures extends Fixture
         $user->setCivility(User::CIVILITY[array_rand(User::CIVILITY)]);
         $user->setUserType(User::USER_TYPES[array_rand(User::USER_TYPES)]);
         $user->setPostalCode($faker->postcode);
+        $user->addRegulation($this->getReference(RegulationFixtures::REGULATION_REFERENCE));
         $manager->persist($user);
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            RegulationFixtures::class,
+        );
     }
 }
