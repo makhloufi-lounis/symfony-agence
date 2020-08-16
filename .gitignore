@@ -22,3 +22,7 @@
 ###> data/db ###
 /data
 ###< data/db ###
+
+###> src/Migrations ###
+/src/Migrations
+###< src/Migrations ###
