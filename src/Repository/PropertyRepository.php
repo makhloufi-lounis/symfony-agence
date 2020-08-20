@@ -66,6 +66,7 @@ class PropertyRepository extends ServiceEntityRepository
     }
 
     /**
+     * @codeCoverageIgnore
      * @return QueryBuilder
      */
     private function findVisibleQuery() : QueryBuilder
@@ -76,8 +77,4 @@ class PropertyRepository extends ServiceEntityRepository
             ->setParameter('status', 'public');
     }
 
-    public function findBySliceQuery($offset, $limit)
-    {
-
-    }
 }

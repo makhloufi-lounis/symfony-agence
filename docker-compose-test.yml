@@ -30,39 +30,18 @@ services:
     volumes:
       - .:/app
     depends_on:
-      - mysql
+      - sqlite
     networks:
       - agence
 
-  myadmin:
-    container_name: ${PHP_MY_ADMIN_CONTAINER_NAME}
-    image: phpmyadmin/phpmyadmin
-    restart: on-failure
-    ports:
-      - ${PHP_MY_ADMIN_MACHINE_PORT}:${PHP_MY_ADMIN_CONTAINER_PORT}
-    environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=${MYSQL_HOST}
-    depends_on:
-      - mysql
-    networks:
-      - agence
-
-  mysql:
-    container_name: ${MYSQL_HOST}
-    image: mysql:${MYSQL_VERSION}
+  sqlite:
+    container_name: sqlite
+    build: .docker/sqlite
     restart: on-failure
     env_file:
       - .env.test
-    ports:
-      - ${MYSQL_MACHINE_PORT}:${MYSQL_CONTAINER_PORT}
-    environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_USER= ${MYSQL_USER}
-      - MYSQL_PASSWORD= ${MYSQL_PSW}
     volumes:
-      - ./data/db/mysql:/var/lib/mysql
+      - ./var/cache/test:/var/cache/test
     networks:
       - agence
 

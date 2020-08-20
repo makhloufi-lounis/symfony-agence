@@ -22,11 +22,11 @@ class RegulationRepository extends ServiceEntityRepository
     /**
      * @param string $type
      * @param $status
-     * @return array
+     * @return Regulation[] Returns an array of Regulation objects
      */
     public function findOneByTypeAndStatus(string $type, $status): array
     {
-        $result =  $this->createQueryBuilder('r')
+        return $this->createQueryBuilder('r')
             ->where('r.type = :type')
             ->andWhere('r.status = :status')
             ->setParameter('type', $type)
@@ -34,8 +34,6 @@ class RegulationRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getResult();
-
-        return $result;
     }
     // /**
     //  * @return Regulation[] Returns an array of Regulation objects

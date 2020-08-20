@@ -12,15 +12,18 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
  * @Vich\Uploadable
+ * @UniqueEntity("reference")
  */
 class Property
 {
     public const BLOCK_NAME_ADMIN = 'admin';
     public const BLOCK_NAME_PUBLIC = 'public';
+    public const DEFAULT_ACTIVITY = 'real_estate';
 
     public const STATUS_PUBLIC = 'public';
     public const STATUS_WAITING = 'waiting';
@@ -52,7 +55,7 @@ class Property
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=10, max=255)
+     * @Assert\Length(min=10, max=255, allowEmptyString=false)
      */
     private $title;
 
@@ -98,19 +101,20 @@ class Property
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, max=255)
+     * @Assert\Length(min=3, max=255, allowEmptyString=false)
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, max=255)
+     * @Assert\Length(min=3, max=255, allowEmptyString=false)
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Assert\Regex("/^[0-9]{2}\s[0-9]{3}/")
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^[0-9]{2}[0-9]{3}/")
      */
     private $postalCode;
 
@@ -135,14 +139,16 @@ class Property
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^ref_.+/")
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=255, options={"default": "real_estate"})
      */
-    private $activity = 'real_estate';
+    private $activity = self::DEFAULT_ACTIVITY;
 
     /**
      * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="properties")
@@ -272,7 +278,7 @@ class Property
     }
 
     /**
-     * @param int $bedrooms
+     * @param int|null $bedrooms
      * @return $this
      */
     public function setBedrooms(?int $bedrooms): self
@@ -291,7 +297,7 @@ class Property
     }
 
     /**
-     * @param int $floor
+     * @param int|null $floor
      * @return $this
      */
     public function setFloor(?int $floor): self
@@ -310,7 +316,7 @@ class Property
     }
 
     /**
-     * @param int $price
+     * @param int|null $price
      * @return $this
      */
     public function setPrice(?int $price): self

@@ -30,7 +30,8 @@ class PropertyFixtures extends Fixture
                 ->setCity($faker->city)
                 ->setAddress($faker->address)
                 ->setPostalCode($faker->postcode)
-                ->setSold($cpt % 3 == 0 ? true : false)
+                ->setSold($cpt % 3 == 0)
+                ->setReference(uniqid('ref_'))
                 ->setImageName('noImage.jpg')
                 ->setStatus(Property::STATUS_REQUEST_PUBLICATION)
                 ->addOption($this->getReference(OptionFixtures::OPTION_REFERENCE.'-'.$faker->numberBetween(1,3)));

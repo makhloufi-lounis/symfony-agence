@@ -26,3 +26,7 @@
 ###> src/Migrations ###
 /src/Migrations
 ###< src/Migrations ###
+
+###> build ###
+/build
+###< build ###

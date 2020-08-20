@@ -1,0 +1,18 @@
+App\Entity\Property:
+  property:
+    title: <sentence(5)>
+    area: <numberBetween(10, 100)>
+    rooms: <numberBetween(0,0)>
+    bedrooms: <numberBetween(0,0)>
+    floor: <numberBetween(0,0)>
+    price: <numberBetween(0,0)>
+    heat: <numberBetween(1,0)>
+    city: <city()>
+    address: <address()>
+    postalCode: 12345
+    sold: true
+    status: 'public'
+    createdAt: <dateTime("+1 year")>
+    reference: 'ref_5f3eabe369e70'
+    imageName: 'noImage'
+    imageFile: null
