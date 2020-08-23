@@ -30,3 +30,7 @@ services:
     App\EventSubscriber\ImageCacheSubscriber:
         tags:
         - { name: doctrine.event_subscriber }
+    App\EventSubscriber\ExceptionSubscriber:
+        arguments:
+            $from: 'manager@example.com'
+            $to: 'manager@example.com'
