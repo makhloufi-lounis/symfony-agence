@@ -9,4 +9,6 @@ before_script:
   - composer install
 
 script:
+  - php bin/console doctrine:database:create --env=test
+  - php bin/console doctrine:fixtures:load --no-interaction
   - bin/phpunit --no-coverage --colors=always --stderr
