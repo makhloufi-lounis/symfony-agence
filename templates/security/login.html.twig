@@ -2,7 +2,6 @@
 {% block title %}Se connecter{% endblock %}
 {% block body %}
     <div class="container mt-4">
-
         {% if error %}
             <div class="alert alert-danger">
                 {{ error.messageKey | trans(error.messageData, 'security') }}

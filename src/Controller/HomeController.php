@@ -12,6 +12,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class HomeController extends AbstractController
 {
@@ -36,7 +37,7 @@ class HomeController extends AbstractController
      */
     public function dashboard(): Response
     {
-        echo "Test connection"; exit;
+        return new Response("Test connection");
     }
 
 }

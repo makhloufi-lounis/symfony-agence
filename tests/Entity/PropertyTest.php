@@ -473,7 +473,7 @@ class PropertyTest extends KernelTestCase
             )
         );
         $property->setReference('ref_5f3eabe369e70');
-        $this->loadFixtureFiles([dirname(__DIR__). '/Fixtures/propertyFixture.yml']);
+        $this->loadFixtureFiles([dirname(__DIR__) . '/Fixtures/propertyFixture.yaml']);
         $this->assertHasErrors($property, 1);
     }
 }

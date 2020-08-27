@@ -33,7 +33,7 @@ class PropertyFixtures extends Fixture
                 ->setSold($cpt % 3 == 0)
                 ->setReference(uniqid('ref_'))
                 ->setImageName('noImage.jpg')
-                ->setStatus(Property::STATUS_REQUEST_PUBLICATION)
+                ->setStatus(Property::STATUS_PUBLIC)
                 ->addOption($this->getReference(OptionFixtures::OPTION_REFERENCE.'-'.$faker->numberBetween(1,3)));
             $manager->persist($property);
             $cpt++;

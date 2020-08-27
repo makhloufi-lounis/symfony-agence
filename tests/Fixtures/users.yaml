@@ -1,0 +1,13 @@
+App\Entity\User:
+  user_user:
+    lastName: foo
+    firstName: bar
+    email: foo\@bar.com
+    phone: <phoneNumber()>
+    username: demo
+    roles: ["ROLE_USER"]
+    password: \$2y\$12\$gCRqrl9H4meZdGSKWni1c.YQ.zx1FWTYVCwm1Us41jCntjuc8j9dm
+    status: waiting'
+    civility: Masculin
+    userType: Acheteur
+    postalCode: 12345
