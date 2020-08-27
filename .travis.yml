@@ -9,4 +9,4 @@ before_script:
   - composer install
 
 script:
-  - bin/phpunit --no-coverage --colors=always --env=test --stderr
+  - bin/phpunit --no-coverage --colors=always --stderr
