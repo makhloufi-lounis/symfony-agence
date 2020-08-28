@@ -1,14 +1,13 @@
 language: php
 
-php:
-  - 7.0
-  - 7.1
-  - 7.2
+services:
+  - docker
 
 before_script:
-  - composer install
+  - docker-compose -f docker-compose-test.yml up --build --no-cache -d
 
 script:
-  - php bin/console doctrine:database:create --env=test
+  - docker ps
+  - docker exec -ti symfony-docker-php bash
   - php bin/console doctrine:fixtures:load --no-interaction
   - bin/phpunit --no-coverage --colors=always --stderr
