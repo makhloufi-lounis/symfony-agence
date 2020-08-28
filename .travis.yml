@@ -4,8 +4,9 @@ services:
   - docker
 
 before_script:
-  - docker-compose -f docker-compose-test.yml up -d
+  - docker-compose -f docker-compose-test.yml up --build -d
 
 script:
-   - docker exec symfony-docker-php ls
+   - docker exec symfony-docker-php composer install
+   - docker exec symfony-docker-php composer ls
    #- docker exec symfony-docker-php ./bin/phpunit --no-coverage --colors=always --stderr
