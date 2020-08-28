@@ -7,5 +7,4 @@ before_script:
   - docker-compose -f docker-compose-test.yml up --build -d
 
 script:
-   - docker exec symfony-docker-php ./bin/console doctrine:fixtures:load --no-interaction --stderr
-   - docker exec symfony-docker-php ./bin/phpunit --no-coverage --colors=always --stderr   -
+   - docker exec symfony-docker-php ./bin/phpunit --no-coverage --colors=always --stderr
