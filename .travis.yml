@@ -9,8 +9,8 @@ before_script:
 script:
    - docker exec symfony-docker-php composer install
    - docker exec symfony-docker-php ls
-   - docker exec symfony-docker-php sh -c "cd ./var/cache/test && ls"
-   - docker exec symfony-docker-php -c "cd ./../../../"
+   - docker exec symfony-docker-php sh -c 'cd ./var/cache/test && ls'
+   - docker exec symfony-docker-php sh -c 'cd ./../../../'
    #- docker exec symfony-docker-php sh -c "rm test
    - docker exec symfony-docker-php ./bin/console doctrine:fixtures:load --no-interaction --env=test
    - docker exec symfony-docker-php ./bin/phpunit --no-coverage --colors=always
