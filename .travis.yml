@@ -5,7 +5,7 @@ services:
 
 before_script:
   - docker-compose -f docker-compose-test.yml up --build -d
-  - mkdir data && cd data && mkdir db && cd
+  - mkdir data && cd data && mkdir db && cd ..
   - ls
   - chmod -R 777 data
 
