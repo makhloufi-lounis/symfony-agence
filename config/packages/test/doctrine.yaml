@@ -3,4 +3,6 @@ doctrine:
   dbal:
     driver: pdo_sqlite
     path: "%kernel.cache_dir%/test.db"
-    url: null
+    url: '%env(resolve:DATABASE_URL)%'
+    options:
+      'PRAGMA foreign_keys': 'ON'
