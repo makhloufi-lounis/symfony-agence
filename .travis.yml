@@ -8,5 +8,6 @@ before_script:
 
 script:
    - docker exec symfony-docker-php composer install
+   - docker exec symfony-docker-php ls
    - docker exec symfony-docker-php ./bin/console doctrine:fixtures:load --no-interaction --env=test
    - docker exec symfony-docker-php ./bin/phpunit --no-coverage --colors=always
