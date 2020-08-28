@@ -4,7 +4,7 @@ services:
   - docker
 
 before_script:
-  - docker-compose -f docker-compose-test.yml up --build --no-cache -d
+  - docker-compose -f docker-compose-test.yml up --build -d
 
 script:
   - docker ps
