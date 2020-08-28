@@ -6,7 +6,8 @@ services:
 before_script:
   - docker-compose -f docker-compose-test.yml up --build -d
   - mkdir data && cd data && mkdir db
-  - chmod -R 777 data
+  - ls
+  - chmod -R 777 ./data
 
 script:
    - docker exec symfony-docker-php composer install
