@@ -41,7 +41,7 @@ services:
     env_file:
       - .env.test
     volumes:
-      - ./var/cache/test:/var/cache/test
+      - ./data/db:/data/db
     networks:
       - agence
 
